@@ -9,6 +9,10 @@ import {
   Button,
   FlatList,
 } from "react-native";
+import DetailsPopUp from "./components/DetailsPopUp";
+
+
+
 
 export default function App() {
   const [goalsList, setGoalsList] = useState([]);
@@ -21,17 +25,22 @@ export default function App() {
     }
   };
 
+  const detailGoal = (props) => {
+    const updatedGoalsList = goalsList.map(goal => (goal === props.goal) ? {goal: props} : goal)
+    setGoalsList(updatedGoalsList)
+  }
+
   const removeGoal = (props) => {
-    console.log(props);
     const filteredList = goalsList.filter((goal) => goal !== props);
     setGoalsList(filteredList);
   };
 
   const Item = ({ title }) => (
-    <View style={styles.item}>
-      <Text style={styles.listItem}>{title}</Text>
-      <Button title="X" onPress={() => removeGoal(title)} color="red" />
-    </View>
+    // <View style={styles.item}>
+    //   <Text style={styles.listItem}>{title}</Text>
+    //   <Button title="X" onPress={() => removeGoal(title)} color="red" />
+    // </View>
+    <DetailsPopUp title={title} removeGoal={removeGoal} detailGoal={detailGoal} />
   );
 
   const renderItem = ({ item }) => {
