@@ -17,7 +17,7 @@ import DetailsPopUp from "./components/DetailsPopUp";
 export default function App() {
   const [goalsList, setGoalsList] = useState([]);
   const [value, onChangeText] = useState("");
-
+  const [timesPressed, setTimesPressed] = useState(0);
   const addGoal = () => {
     if (value) {
       setGoalsList(goalsList.concat(value));
@@ -27,25 +27,28 @@ export default function App() {
 
   const detailGoal = (prop) => {
       console.log(prop)
-    const updatedGoalsList = goalsList.map(goal => (goal === titleprop) ? valueprop : goal)
+    const updatedGoalsList = goalsList.map(goal => (goal.title === prop.title) ? prop : goal)
     setGoalsList(updatedGoalsList)
   }
 
   const removeGoal = (props) => {
-    const filteredList = goalsList.filter((goal) => goal !== props);
+      console.log(props)
+    const filteredList = goalsList.filter((goal) => goal.title !== props);
     setGoalsList(filteredList);
   };
 
-  const Item = ({ title }) => (
+  const Item = ({ title, name }) => (
     // <View style={styles.item}>
     //   <Text style={styles.listItem}>{title}</Text>
     //   <Button title="X" onPress={() => removeGoal(title)} color="red" />
     // </View>
-    <DetailsPopUp title={title} removeGoal={removeGoal} detailGoal={detailGoal} />
+    <DetailsPopUp name={name} title={title} removeGoal={removeGoal} detailGoal={detailGoal} />
   );
 
   const renderItem = ({ item }) => {
-    return <Item title={item} />;
+    return <Item name={item.title} title={item.dueDate ? `${item.title} | Due: ${item.dueDate}` : item.title}   onPress={() => {
+        setTimesPressed((current) => current + 10);
+      }}/>;
   };
 
   return (
@@ -63,7 +66,7 @@ export default function App() {
       <View style={styles.listBox}>
         <Text style={styles.listTitle}>Your Goals</Text>
         <FlatList
-          data={goalsList.map(goal=> {return goal.title})}
+          data={goalsList}
           renderItem={renderItem}
           keyExtractor={(item, index) => index}
         />

@@ -10,7 +10,7 @@ import {
   TextInput,
 } from "react-native";
 
-const DetailsPopUp = ({ title, removeGoal, detailGoal }) => {
+const DetailsPopUp = ({ title, removeGoal, detailGoal, name }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [details, onChangeDetails] = useState("")
@@ -107,7 +107,7 @@ const DetailsPopUp = ({ title, removeGoal, detailGoal }) => {
       >
         <View style={styles.item}>
           <Text style={styles.listItem}>{title}</Text>
-          <Button title="X" onPress={() => removeGoal(title)} color="red" />
+          <Button title="X" onPress={() => removeGoal(name)} color="red" />
         </View>
       </TouchableHighlight>
     </View>
