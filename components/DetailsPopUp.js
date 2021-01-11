@@ -7,10 +7,13 @@ import {
   TouchableHighlight,
   View,
   Button,
+  TextInput
 } from "react-native";
 
 const DetailsPopUp = ({ title, removeGoal, detailGoal }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [value, onChangeText] = useState("");
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -18,20 +21,25 @@ const DetailsPopUp = ({ title, removeGoal, detailGoal }) => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
         }}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
+          <View style={styles.views}>
+        <TextInput
+          placeholder="Enter Goal Details"
+          value={value}
+          style={styles.input}
+          onChangeText={(text) => onChangeText(text)}
+        />
+      </View>
+
+
 
             <TouchableHighlight
               style={{ ...styles.openButton}}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}
             >
-              <Text style={styles.textStyle}>Close</Text>
+            <Button title="save" onPress={() =>  Alert.alert("Saved", value, [{text: "OK", onPress: () => (setModalVisible(!modalVisible), onChangeText("")) }] ) }   />
             </TouchableHighlight>
           </View>
         </View>
@@ -70,17 +78,19 @@ const styles = StyleSheet.create({
         padding: 3
       },
 
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
+//   centeredView: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//     marginTop: 22,
+//   },
+
   modalView: {
     margin: 20,
-    backgroundColor: "blue",
+    marginTop: 70,
+    backgroundColor: "whitesmoke",
     borderRadius: 20,
-    padding: 35,
+    padding: 10,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -91,14 +101,15 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+
   openButton: {
     padding: 10,
     elevation: 2,
   },
   textStyle: {
-    color: "white",
+    color: "black",
     fontWeight: "bold",
-    textAlign: "center",
+    textAlign: "right",
   },
   modalText: {
     marginBottom: 15,
