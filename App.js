@@ -30,7 +30,7 @@ export default function App() {
   const Item = ({ title }) => (
     <View style={styles.item}>
       <Text style={styles.listItem}>{title}</Text>
-      <Button title="X" onPress={() => removeGoal(title)} />
+      <Button title="X" onPress={() => removeGoal(title)} color="red" />
     </View>
   );
 
@@ -47,7 +47,7 @@ export default function App() {
           style={styles.input}
           onChangeText={(text) => onChangeText(text)}
         />
-        <Button title="+" style={styles.button} onPress={() => addGoal()} />
+        <Button title="ADD" style={styles.button} onPress={() => addGoal()}   color="blue"  />
       </View>
 
       <View style={styles.listBox}>
@@ -65,19 +65,22 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "whitesmoke"
   },
+  views: {
+  padding: 30,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+
   input: {
     borderBottomColor: "black",
     borderWidth: 2,
     padding: 10,
     width: "80%",
   },
-  views: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
   button: {
-
+    width: "20%"
   },
 
   listBox: {
@@ -86,22 +89,24 @@ const styles = StyleSheet.create({
   },
   listTitle: {
     fontWeight: "bold",
-    color: 'green',
+    color: 'grey',
     fontFamily: "Cochin",
     fontSize: 30,
     alignSelf: "center",
     marginBottom: 10,
+
+    textDecorationLine: "underline"
   },
 
 
   item: {
+    backgroundColor: "white",
     flexDirection: "row",
     justifyContent: 'space-between',
     alignItems: "center",
     marginBottom: 7,
     borderColor: 'black',
     borderWidth: 1,
-
   },
 
   listItem: {
