@@ -87,13 +87,12 @@ export default function App() {
       <View style={styles.listBox}>
         <Text style={styles.listTitle}>Your Goals</Text>
 
-        <ScrollView>
+
           <FlatList
             data={goalsList}
             renderItem={renderItem}
-            keyExtractor={(item, index) => index}
+            keyExtractor={(item, index) => item}
           />
-        </ScrollView>
       </View>
       <View style={styles.footer}>
         <Text>GoalSetter@</Text>
