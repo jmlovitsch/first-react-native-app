@@ -8,6 +8,7 @@ import {
   View,
   Button,
   FlatList,
+  ScrollView,
 } from "react-native";
 import DetailsPopUp from "./components/DetailsPopUp";
 
@@ -64,12 +65,16 @@ export default function App() {
       </View>
 
       <View style={styles.listBox}>
-        <Text style={styles.listTitle}>Your Goals</Text>
-        <FlatList
+      <Text style={styles.listTitle}>Your Goals</Text>
+
+          <ScrollView>
+          <FlatList
           data={goalsList}
           renderItem={renderItem}
           keyExtractor={(item, index) => index}
         />
+
+          </ScrollView>
       </View>
     </SafeAreaView>
   );
