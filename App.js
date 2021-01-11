@@ -12,13 +12,12 @@ import {
 } from "react-native";
 import DetailsPopUp from "./components/DetailsPopUp";
 
-
-
-
 export default function App() {
+
   const [goalsList, setGoalsList] = useState([]);
   const [value, onChangeText] = useState("");
   const [timesPressed, setTimesPressed] = useState(0);
+
   const addGoal = () => {
     if (value) {
       setGoalsList(goalsList.concat(value));
@@ -27,29 +26,45 @@ export default function App() {
   };
 
   const detailGoal = (prop) => {
-      console.log(prop)
-    const updatedGoalsList = goalsList.map(goal => (goal.title === prop.title) ? prop : goal)
-    setGoalsList(updatedGoalsList)
-  }
+    console.log(prop);
+    const updatedGoalsList = goalsList.map((goal) =>
+      goal.title === prop.title ? prop : goal
+    );
+    setGoalsList(updatedGoalsList);
+  };
 
   const removeGoal = (props) => {
-      console.log(props)
+    console.log(props);
     const filteredList = goalsList.filter((goal) => goal.title !== props);
     setGoalsList(filteredList);
   };
 
-  const Item = ({ title, name }) => (
+  const Item = ({ title, name, item }) => (
     // <View style={styles.item}>
     //   <Text style={styles.listItem}>{title}</Text>
     //   <Button title="X" onPress={() => removeGoal(title)} color="red" />
     // </View>
-    <DetailsPopUp name={name} title={title} removeGoal={removeGoal} detailGoal={detailGoal} />
+    <DetailsPopUp
+    item={item}
+      name={name}
+      title={title}
+      removeGoal={removeGoal}
+      detailGoal={detailGoal}
+    />
   );
 
   const renderItem = ({ item }) => {
-    return <Item name={item.title} title={item.dueDate ? `${item.title} | Due: ${item.dueDate}` : item.title}   onPress={() => {
-        setTimesPressed((current) => current + 10);
-      }}/>;
+      const title = item.title
+    return (
+      <Item
+      item={item}
+        name={item.title}
+        title={item.dueDate ? `${item.title} | ${item.dueDate}` : item.title}
+        onPress={() => {
+          setTimesPressed((current) => current + 10);
+        }}
+      />
+    );
   };
 
   return (
@@ -59,22 +74,29 @@ export default function App() {
           placeholder="Enter Goals"
           value={value}
           style={styles.input}
-          onChangeText={(text) => onChangeText({title: text})}
+          onChangeText={(text) => onChangeText({ title: text })}
         />
-        <Button title="ADD" style={styles.button} onPress={() => addGoal()}   color="blue"  />
+        <Button
+          title="ADD"
+          style={styles.button}
+          onPress={() => addGoal()}
+          color="blue"
+        />
       </View>
 
-      <View style={styles.listBox} >
-      <Text style={styles.listTitle}>Your Goals</Text>
+      <View style={styles.listBox}>
+        <Text style={styles.listTitle}>Your Goals</Text>
 
-          <ScrollView >
+        <ScrollView>
           <FlatList
-          data={goalsList}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => index}
-        />
-
-          </ScrollView>
+            data={goalsList}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index}
+          />
+        </ScrollView>
+      </View>
+      <View style={styles.footer}>
+        <Text>GoalSetter@</Text>
       </View>
     </SafeAreaView>
   );
@@ -83,12 +105,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "whitesmoke"
+    backgroundColor: "whitesmoke",
   },
   views: {
-  padding: 30,
+      flex: 1,
+      backgroundColor: "green",
     flexDirection: "row",
     justifyContent: "space-around",
+    alignItems: 'center'
   },
 
   input: {
@@ -98,42 +122,47 @@ const styles = StyleSheet.create({
     width: "80%",
   },
   button: {
-    width: "20%"
+    width: "20%",
+  },
+  listBox: {
+    flex: 10,
+    backgroundColor: "blue",
+    padding: 10,
+    borderColor: "black",
+    borderWidth: 1,
+  },
+  footer: {
+    flex: 1,
+    backgroundColor: "red",
+    justifyContent: 'center',
+    alignItems: 'center'
+
   },
 
-  listBox: {
-    margin: 30,
-    marginBottom: 200,
-    padding: 10,
-    borderColor: 'black',
-    borderWidth: 1
-  },
   listTitle: {
     fontWeight: "bold",
-    color: 'grey',
+    color: "grey",
     fontFamily: "Cochin",
     fontSize: 30,
     alignSelf: "center",
 
-
-    textDecorationLine: "underline"
+    textDecorationLine: "underline",
   },
-
 
   item: {
     backgroundColor: "white",
     flexDirection: "row",
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 7,
-    borderColor: 'black',
+    borderColor: "black",
     borderWidth: 1,
   },
 
   listItem: {
     fontWeight: "bold",
-    color: 'green',
+    color: "green",
     alignContent: "center",
-    padding: 3
+    padding: 3,
   },
 });

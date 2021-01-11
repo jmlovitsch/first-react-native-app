@@ -10,19 +10,19 @@ import {
   TextInput,
 } from "react-native";
 
-const DetailsPopUp = ({ title, removeGoal, detailGoal, name }) => {
-
+const DetailsPopUp = ({ title, removeGoal, detailGoal, name, item }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [details, onChangeDetails] = useState("")
-        const [location, onChangeLocation] = useState("")
+  const [details, onChangeDetails] = useState(item.details);
+  const [location, onChangeLocation] = useState(item.location);
 
-  const [dueDate, onChangeDueDate] = useState("");
+  const [dueDate, onChangeDueDate] = useState(item.dueDate);
 
-  const value = {title: title,
-
-      details: details,
-      location: location,
-      dueDate: dueDate}
+  const value = {
+    title: item.title,
+    details: details,
+    location: location,
+    dueDate: dueDate,
+  };
 
   return (
     <View style={styles.centeredView}>
@@ -35,16 +35,16 @@ const DetailsPopUp = ({ title, removeGoal, detailGoal, name }) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.views}>
-                <View style={styles.header}><Text>Info for {title} </Text></View>
+              <View style={styles.header}>
+                <Text>Info for {title} </Text>
+              </View>
               <View style={styles.formLines}>
                 <Text>Details:</Text>
                 <TextInput
                   placeholder="Enter Goal Details"
-                  value={value}
+                  value={details}
                   style={styles.input}
-                  onChangeText={(text) =>
-                    onChangeDetails(text)
-                  }
+                  onChangeText={(text) => onChangeDetails(text)}
                 />
               </View>
               <View style={styles.formLines}>
@@ -52,11 +52,9 @@ const DetailsPopUp = ({ title, removeGoal, detailGoal, name }) => {
 
                 <TextInput
                   placeholder="Location"
-                  value={value}
+                  value={location}
                   style={styles.input}
-                  onChangeText={(text) =>
-                    onChangeLocation(text)
-                  }
+                  onChangeText={(text) => onChangeLocation(text)}
                 />
               </View>
               <View style={styles.formLines}>
@@ -64,22 +62,17 @@ const DetailsPopUp = ({ title, removeGoal, detailGoal, name }) => {
 
                 <TextInput
                   placeholder="Due Date"
-                  value={value}
+                  value={dueDate}
                   style={styles.input}
-                  onChangeText={(text) =>
-                    onChangeDueDate(text)
-                  }
+                  onChangeText={(text) => onChangeDueDate(text)}
                 />
               </View>
             </View>
-
-            <TouchableHighlight>
-              <View style={styles.footer}>
+            <View style={styles.footer}>
               <Button
                 title="back"
-                onPress={() => (
-                    setModalVisible(!modalVisible) )}
-          />
+                onPress={() => setModalVisible(!modalVisible)}
+              />
 
               <Button
                 title="save"
@@ -88,14 +81,13 @@ const DetailsPopUp = ({ title, removeGoal, detailGoal, name }) => {
                     {
                       text: "OK",
                       onPress: () => (
-                        setModalVisible(!modalVisible),
-                        detailGoal(value)                      ),
+                        setModalVisible(!modalVisible), detailGoal(value)
+                      ),
                     },
                   ])
                 }
               />
-              </View >
-            </TouchableHighlight>
+            </View>
           </View>
         </View>
       </Modal>
@@ -122,21 +114,21 @@ const styles = StyleSheet.create({
     width: "80%",
   },
   header: {
-      alignItems: 'center',
-      paddingBottom: 10
+    alignItems: "center",
+    paddingBottom: 10,
   },
   footer: {
+      width: "100%",
     flexDirection: "row",
-    paddingBottom: 10,
-    justifyContent: "space-between",
+    justifyContent: "space-around",
 
-},
+  },
 
   formLines: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   item: {
     backgroundColor: "white",
