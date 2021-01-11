@@ -25,8 +25,9 @@ export default function App() {
     }
   };
 
-  const detailGoal = (props) => {
-    const updatedGoalsList = goalsList.map(goal => (goal === props.goal) ? {goal: props} : goal)
+  const detailGoal = (prop) => {
+      console.log(prop)
+    const updatedGoalsList = goalsList.map(goal => (goal === titleprop) ? valueprop : goal)
     setGoalsList(updatedGoalsList)
   }
 
@@ -54,7 +55,7 @@ export default function App() {
           placeholder="Enter Goals"
           value={value}
           style={styles.input}
-          onChangeText={(text) => onChangeText(text)}
+          onChangeText={(text) => onChangeText({title: text})}
         />
         <Button title="ADD" style={styles.button} onPress={() => addGoal()}   color="blue"  />
       </View>
@@ -62,7 +63,7 @@ export default function App() {
       <View style={styles.listBox}>
         <Text style={styles.listTitle}>Your Goals</Text>
         <FlatList
-          data={goalsList}
+          data={goalsList.map(goal=> {return goal.title})}
           renderItem={renderItem}
           keyExtractor={(item, index) => index}
         />
