@@ -64,10 +64,10 @@ export default function App() {
         <Button title="ADD" style={styles.button} onPress={() => addGoal()}   color="blue"  />
       </View>
 
-      <View style={styles.listBox}>
+      <View style={styles.listBox} >
       <Text style={styles.listTitle}>Your Goals</Text>
 
-          <ScrollView>
+          <ScrollView >
           <FlatList
           data={goalsList}
           renderItem={renderItem}
@@ -102,8 +102,11 @@ const styles = StyleSheet.create({
   },
 
   listBox: {
-    padding: 30,
-
+    margin: 30,
+    marginBottom: 200,
+    padding: 10,
+    borderColor: 'black',
+    borderWidth: 1
   },
   listTitle: {
     fontWeight: "bold",
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
     fontFamily: "Cochin",
     fontSize: 30,
     alignSelf: "center",
-    marginBottom: 10,
+
 
     textDecorationLine: "underline"
   },
